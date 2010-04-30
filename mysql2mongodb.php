@@ -69,7 +69,7 @@ foreach( $tables as $table )
 
   $sql = 'SELECT * FROM '.$table;
 
-  echo "\nSelecting rows from $table...\n\n";
+  echo "\nSelecting rows from $table...\n";
   $q = mysql_query($sql);
 
   $mongo = new Mongo();
