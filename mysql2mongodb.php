@@ -63,6 +63,21 @@ else
   $tables[] = $table;
 }
 
+if (!class_exists('Mongo'))
+{
+  die("Mongo support required. Install mongo pecl extension with 'pecl install mongo; echo \"extension=mongo.so\" >> php.ini'");
+}
+try
+{
+  $mongo = new Mongo();
+}
+catch (MongoConnectionException $ex)
+{
+  error_log();
+  die("Failed to connect to MongoDB - ".$ex->getMessage());
+}
+
+
 $total = 0;
 foreach( $tables as $table )
 {
@@ -71,8 +86,6 @@ foreach( $tables as $table )
 
   echo "\nSelecting rows from $table...\n";
   $q = mysql_query($sql);
-
-  $mongo = new Mongo();
 
   $db = $mongo->$dbname;
 
